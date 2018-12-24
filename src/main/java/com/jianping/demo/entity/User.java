@@ -1,5 +1,7 @@
 package com.jianping.demo.entity;
 
+import java.util.Date;
+
 public class User {
     private Integer id;
 
@@ -12,6 +14,14 @@ public class User {
     private String phoneNum;
 
     private String sex;
+
+    private Integer errorNum;
+
+    private Date lastLandingTime;
+
+    private Integer lockState;
+
+    private String email;
 
     public Integer getId() {
         return id;
@@ -59,5 +69,37 @@ public class User {
 
     public void setSex(String sex) {
         this.sex = sex == null ? null : sex.trim();
+    }
+
+    public Integer getErrorNum() {
+        return errorNum;
+    }
+
+    public void setErrorNum(Integer errorNum) {
+        this.errorNum = errorNum;
+    }
+
+    public Date getLastLandingTime() {
+        return lastLandingTime;
+    }
+
+    public void setLastLandingTime(Date lastLandingTime) {
+        this.lastLandingTime = lastLandingTime;
+    }
+
+    public Integer getLockState() {
+        return lockState;
+    }
+
+    public void setLockState(Integer lockState) {
+        this.lockState = lockState;
+    }
+
+    public String getEmail() {
+        return email;
+    }
+
+    public void setEmail(String email) {
+        this.email = email == null ? null : email.trim();
     }
 }

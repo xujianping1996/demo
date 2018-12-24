@@ -55,5 +55,4 @@
     set NAME = #{name,jdbcType=VARCHAR}
     where ID = #{id,jdbcType=INTEGER}
   </update>
-  
 </mapper>

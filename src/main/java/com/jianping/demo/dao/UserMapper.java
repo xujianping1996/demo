@@ -15,7 +15,5 @@ public interface UserMapper {
 
     int updateByPrimaryKey(User record);
     
-    String getRole(String username);
-    
-    String getUserPassword(String username);
+    User selectUserByLoginName(String username);
 }

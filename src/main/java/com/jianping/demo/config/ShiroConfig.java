@@ -5,6 +5,8 @@ import java.util.Map;
 
 import org.apache.shiro.spring.web.ShiroFilterFactoryBean;
 import org.apache.shiro.web.mgt.DefaultWebSecurityManager;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.apache.shiro.mgt.SecurityManager;
@@ -13,6 +15,7 @@ import com.jianping.demo.util.shiro.MyRealm;
 
 @Configuration
 public class ShiroConfig {
+	private Logger logger = LoggerFactory.getLogger(this.getClass());
 	@Bean
 	public ShiroFilterFactoryBean shirFilter(SecurityManager securityManager) {
 		ShiroFilterFactoryBean shiroFilterFactoryBean = new ShiroFilterFactoryBean();
@@ -39,7 +42,8 @@ public class ShiroConfig {
 		filterChainDefinitionMap.put("/**", "authc");
 
 		shiroFilterFactoryBean.setFilterChainDefinitionMap(filterChainDefinitionMap);
-		System.out.println("Shiro拦截器工厂类注入成功");
+//		System.out.println("Shiro拦截器工厂类注入成功");
+		logger.info("Shiro拦截器工厂类注入成功");
 		return shiroFilterFactoryBean;
 	}
 

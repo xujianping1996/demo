@@ -8,9 +8,14 @@
     <result column="PASS_WORD" jdbcType="VARCHAR" property="passWord" />
     <result column="PHONE_NUM" jdbcType="VARCHAR" property="phoneNum" />
     <result column="SEX" jdbcType="VARCHAR" property="sex" />
+    <result column="ERROR_NUM" jdbcType="INTEGER" property="errorNum" />
+    <result column="LAST_LANDING_TIME" jdbcType="TIMESTAMP" property="lastLandingTime" />
+    <result column="LOCK_STATE" jdbcType="INTEGER" property="lockState" />
+    <result column="EMAIL" jdbcType="VARCHAR" property="email" />
   </resultMap>
   <sql id="Base_Column_List">
-    ID, NAME, USER_NAME, PASS_WORD, PHONE_NUM, SEX
+    ID, NAME, USER_NAME, PASS_WORD, PHONE_NUM, SEX, ERROR_NUM, LAST_LANDING_TIME, LOCK_STATE, 
+    EMAIL
   </sql>
   <select id="selectByPrimaryKey" parameterType="java.lang.Integer" resultMap="BaseResultMap">
     select 
@@ -24,11 +29,13 @@
   </delete>
   <insert id="insert" parameterType="com.jianping.demo.entity.User">
     insert into user (ID, NAME, USER_NAME, 
-      PASS_WORD, PHONE_NUM, SEX
-      )
+      PASS_WORD, PHONE_NUM, SEX, 
+      ERROR_NUM, LAST_LANDING_TIME, LOCK_STATE, 
+      EMAIL)
     values (#{id,jdbcType=INTEGER}, #{name,jdbcType=VARCHAR}, #{userName,jdbcType=VARCHAR}, 
-      #{passWord,jdbcType=VARCHAR}, #{phoneNum,jdbcType=VARCHAR}, #{sex,jdbcType=VARCHAR}
-      )
+      #{passWord,jdbcType=VARCHAR}, #{phoneNum,jdbcType=VARCHAR}, #{sex,jdbcType=VARCHAR}, 
+      #{errorNum,jdbcType=INTEGER}, #{lastLandingTime,jdbcType=TIMESTAMP}, #{lockState,jdbcType=INTEGER}, 
+      #{email,jdbcType=VARCHAR})
   </insert>
   <insert id="insertSelective" parameterType="com.jianping.demo.entity.User">
     insert into user
@@ -51,6 +58,18 @@
       <if test="sex != null">
         SEX,
       </if>
+      <if test="errorNum != null">
+        ERROR_NUM,
+      </if>
+      <if test="lastLandingTime != null">
+        LAST_LANDING_TIME,
+      </if>
+      <if test="lockState != null">
+        LOCK_STATE,
+      </if>
+      <if test="email != null">
+        EMAIL,
+      </if>
     </trim>
     <trim prefix="values (" suffix=")" suffixOverrides=",">
       <if test="id != null">
@@ -70,6 +89,18 @@
       </if>
       <if test="sex != null">
         #{sex,jdbcType=VARCHAR},
+      </if>
+      <if test="errorNum != null">
+        #{errorNum,jdbcType=INTEGER},
+      </if>
+      <if test="lastLandingTime != null">
+        #{lastLandingTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="lockState != null">
+        #{lockState,jdbcType=INTEGER},
+      </if>
+      <if test="email != null">
+        #{email,jdbcType=VARCHAR},
       </if>
     </trim>
   </insert>
@@ -91,6 +122,18 @@
       <if test="sex != null">
         SEX = #{sex,jdbcType=VARCHAR},
       </if>
+      <if test="errorNum != null">
+        ERROR_NUM = #{errorNum,jdbcType=INTEGER},
+      </if>
+      <if test="lastLandingTime != null">
+        LAST_LANDING_TIME = #{lastLandingTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="lockState != null">
+        LOCK_STATE = #{lockState,jdbcType=INTEGER},
+      </if>
+      <if test="email != null">
+        EMAIL = #{email,jdbcType=VARCHAR},
+      </if>
     </set>
     where ID = #{id,jdbcType=INTEGER}
   </update>
@@ -100,14 +143,16 @@
       USER_NAME = #{userName,jdbcType=VARCHAR},
       PASS_WORD = #{passWord,jdbcType=VARCHAR},
       PHONE_NUM = #{phoneNum,jdbcType=VARCHAR},
-      SEX = #{sex,jdbcType=VARCHAR}
+      SEX = #{sex,jdbcType=VARCHAR},
+      ERROR_NUM = #{errorNum,jdbcType=INTEGER},
+      LAST_LANDING_TIME = #{lastLandingTime,jdbcType=TIMESTAMP},
+      LOCK_STATE = #{lockState,jdbcType=INTEGER},
+      EMAIL = #{email,jdbcType=VARCHAR}
     where ID = #{id,jdbcType=INTEGER}
   </update>
-  <select id="getUserPassword" parameterType="java.lang.String" resultType="java.lang.String">
-  	select 
-  	PASS_WORD
-  	from user
-  	where USER_NAME = #{username}
-  	limit 1
+  <select id="selectUserByLoginName" parameterType="java.lang.String" resultMap="BaseResultMap">
+  	SELECT 
+	<include refid="Base_Column_List" />
+	FROM `user` u WHERE u.USER_NAME = #{username,jdbcType=VARCHAR} LIMIT 1
   </select>
 </mapper>
