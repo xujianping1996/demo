@@ -26,7 +26,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.servlet.ModelAndView;
 
 import com.jianping.demo.service.LoginService;
-
+//云端修改
 @Controller
 @RequestMapping(value="/login")
 public class LoginController {
@@ -154,4 +154,5 @@ public class LoginController {
 		mav.setViewName("/desktop/index");
 		return mav;
 	}
+	//本地修改
 }
